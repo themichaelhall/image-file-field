@@ -1,0 +1,38 @@
+{
+  "name": "michaelhall/image-file-field",
+  "description": "BlueMvc form field for image upload",
+  "license": "MIT",
+  "keywords": [
+    "blue",
+    "mvc",
+    "form",
+    "image",
+    "upload"
+  ],
+  "authors": [
+    {
+      "name": "Michael Hall",
+      "homepage": "https://michaelhall.se/"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "bluemvc/bluemvc-core": "dev-master",
+    "bluemvc/bluemvc-forms": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.5||~6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MichaelHall\\ImageFileField\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MichaelHall\\ImageFileField\\Tests\\": "tests"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
