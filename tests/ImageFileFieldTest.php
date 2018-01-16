@@ -3,9 +3,9 @@
 namespace MichaelHall\ImageFileField\Tests;
 
 use BlueMvc\Core\UploadedFile;
+use DataTypes\FilePath;
 use MichaelHall\ImageFileField\ImageFileField;
 use PHPUnit\Framework\TestCase;
-use DataTypes\FilePath;
 
 /**
  * Test ImageFileField class.
