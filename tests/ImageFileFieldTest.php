@@ -18,15 +18,19 @@ class ImageFileFieldTest extends TestCase
      * @dataProvider setUploadedFileDataProvider
      *
      * @param string      $filename          The filename.
+     * @param bool        $isRequired        If true, file is required, false otherwise.
      * @param bool        $expectedIsInvalid True if file is expected to be valid, false otherwise.
      * @param bool        $expectedHasError  True if file field is expected to have an error, false otherwise.
      * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetUploadedFile($filename, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetUploadedFile($filename, $isRequired, $expectedIsInvalid, $expectedHasError, $expectedError)
     {
-        $uploadedFile = new UploadedFile(FilePath::parse(__DIR__ . '/TestFiles/' . $filename));
-
         $imageFileField = new ImageFileField('image');
+        $imageFileField->setRequired($isRequired);
+
+        $uploadedFile = $filename !== null ?
+            new UploadedFile(FilePath::parse(__DIR__ . '/TestFiles/' . $filename)) :
+            null;
         $imageFileField->setUploadedFile($uploadedFile);
 
         self::assertSame($expectedIsInvalid, $imageFileField->isInvalid());
@@ -43,7 +47,9 @@ class ImageFileFieldTest extends TestCase
     public function setUploadedFileDataProvider()
     {
         return [
-            ['textfile.txt', false, false, null],
+            [null, false, false, false, null],
+            [null, true, false, true, 'Missing file'],
+            ['textfile.txt', true, false, false, null],
         ];
     }
 }
