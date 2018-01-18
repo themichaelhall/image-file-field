@@ -18,20 +18,21 @@ class ImageFileFieldTest extends TestCase
      *
      * @dataProvider setUploadedFileDataProvider
      *
-     * @param string      $filename              The filename.
-     * @param bool        $isRequired            If true, file is required, false otherwise.
-     * @param int         $expectedImageType     The expected image type.
-     * @param string      $expectedImageMimeType The expected image mime type.
-     * @param int         $expectedImageWidth    The expected image width.
-     * @param int         $expectedImageHeight   The expected image height.
-     * @param bool        $expectedIsInvalid     True if file is expected to be valid, false otherwise.
-     * @param bool        $expectedHasError      True if file field is expected to have an error, false otherwise.
-     * @param string|null $expectedError         The expected error or null if no error.
+     * @param string      $filename                          The filename.
+     * @param bool        $isRequired                        If true, file is required, false otherwise.
+     * @param int         $expectedImageType                 The expected image type.
+     * @param string      $expectedImageMimeType             The expected image mime type.
+     * @param string      $expectedImageDefaultFileExtension The expected image default file extension.
+     * @param int         $expectedImageWidth                The expected image width.
+     * @param int         $expectedImageHeight               The expected image height.
+     * @param bool        $expectedIsInvalid                 True if file is expected to be valid, false otherwise.
+     * @param bool        $expectedHasError                  True if file field is expected to have an error, false otherwise.
+     * @param string|null $expectedError                     The expected error or null if no error.
      *
      * @throws \DataTypes\Exceptions\FilePathInvalidArgumentException
      * @throws \InvalidArgumentException
      */
-    public function testSetUploadedFile($filename, $isRequired, $expectedImageType, $expectedImageMimeType, $expectedImageWidth, $expectedImageHeight, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetUploadedFile($filename, $isRequired, $expectedImageType, $expectedImageMimeType, $expectedImageDefaultFileExtension, $expectedImageWidth, $expectedImageHeight, $expectedIsInvalid, $expectedHasError, $expectedError)
     {
         $imageFileField = new ImageFileField('image');
         $imageFileField->setRequired($isRequired);
@@ -43,6 +44,7 @@ class ImageFileFieldTest extends TestCase
 
         self::assertSame($expectedImageType, $imageFileField->getImageType());
         self::assertSame($expectedImageMimeType, $imageFileField->getImageMimeType());
+        self::assertSame($expectedImageDefaultFileExtension, $imageFileField->getImageDefaultFileExtension());
         self::assertSame($expectedImageWidth, $imageFileField->getImageWidth());
         self::assertSame($expectedImageHeight, $imageFileField->getImageHeight());
         self::assertSame($expectedIsInvalid, $imageFileField->isInvalid());
@@ -58,10 +60,10 @@ class ImageFileFieldTest extends TestCase
     public function setUploadedFileDataProvider()
     {
         return [
-            [null, false, ImageType::NONE, '', 0, 0, false, false, null],
-            [null, true, ImageType::NONE, '', 0, 0, false, true, 'Missing file'],
-            ['textfile.txt', true, ImageType::NONE, '', 0, 0, true, true, 'Invalid image file'],
-            ['jpegfile.jpg', true, ImageType::JPEG, 'image/jpeg', 20, 30, false, false, null],
+            [null, false, ImageType::NONE, '', '', 0, 0, false, false, null],
+            [null, true, ImageType::NONE, '', '', 0, 0, false, true, 'Missing file'],
+            ['textfile.txt', true, ImageType::NONE, '', '', 0, 0, true, true, 'Invalid image file'],
+            ['jpegfile.jpg', true, ImageType::JPEG, 'image/jpeg', 'jpg', 20, 30, false, false, null],
         ];
     }
 }

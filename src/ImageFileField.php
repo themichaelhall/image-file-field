@@ -35,6 +35,18 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     }
 
     /**
+     * Returns the image default file extension.
+     *
+     * @since 1.0.0
+     *
+     * @return string The image default file extension.
+     */
+    public function getImageDefaultFileExtension()
+    {
+        return $this->myImageDefaultFileExtension;
+    }
+
+    /**
      * Returns the image height.
      *
      * @since 1.0.0
@@ -127,11 +139,13 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
 
         $imageType = self::$myImageTypes[$mimeType];
 
+        $this->myImageMimeType = $mimeType;
         $this->myImageType = $imageType[0];
+        $this->myImageDefaultFileExtension = $imageType[1];
+
         $imageSize = getimagesize($uploadedFile->getPath());
         $this->myImageWidth = $imageSize[0];
         $this->myImageHeight = $imageSize[1];
-        $this->myImageMimeType = $mimeType;
     }
 
     /**
@@ -144,6 +158,7 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
         $this->myImageHeight = 0;
         $this->myImageWidth = 0;
         $this->myImageMimeType = '';
+        $this->myImageDefaultFileExtension = '';
     }
 
     /**
@@ -172,9 +187,14 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     private $myImageMimeType;
 
     /**
+     * @var string My image default file extension.
+     */
+    private $myImageDefaultFileExtension;
+
+    /**
      * @var array My image types.
      */
     private static $myImageTypes = [
-        'image/jpeg' => [ImageType::JPEG],
+        'image/jpeg' => [ImageType::JPEG, 'jpg'],
     ];
 }

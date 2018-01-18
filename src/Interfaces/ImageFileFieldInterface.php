@@ -17,6 +17,15 @@ use BlueMvc\Forms\Interfaces\FileFieldInterface;
 interface ImageFileFieldInterface extends FileFieldInterface
 {
     /**
+     * Returns the image default file extension.
+     *
+     * @since 1.0.0
+     *
+     * @return string The image default file extension.
+     */
+    public function getImageDefaultFileExtension();
+
+    /**
      * Returns the image height.
      *
      * @since 1.0.0
