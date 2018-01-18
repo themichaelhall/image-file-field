@@ -26,6 +26,15 @@ interface ImageFileFieldInterface extends FileFieldInterface
     public function getImageHeight();
 
     /**
+     * Returns the image mime type.
+     *
+     * @since 1.0.0
+     *
+     * @return string The image mime type.
+     */
+    public function getImageMimeType();
+
+    /**
      * Returns the image type as one of the constants defined in the ImageType class.
      *
      * @since 1.0.0

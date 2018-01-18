@@ -47,6 +47,18 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     }
 
     /**
+     * Returns the image mime type.
+     *
+     * @since 1.0.0
+     *
+     * @return string The image mime type.
+     */
+    public function getImageMimeType()
+    {
+        return $this->myImageMimeType;
+    }
+
+    /**
      * Returns the image type as one of the constants defined in the ImageType class.
      *
      * @since 1.0.0
@@ -104,21 +116,22 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
         }
 
         $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-        $contentType = strtolower(finfo_file($fileInfo, $uploadedFile->getPath()));
+        $mimeType = strtolower(finfo_file($fileInfo, $uploadedFile->getPath()));
 
-        if (!isset(self::$myImageTypes[$contentType])) {
+        if (!isset(self::$myImageTypes[$mimeType])) {
             $this->myIsInvalid = true;
             $this->setError('Invalid image file');
 
             return;
         }
 
-        $imageType = self::$myImageTypes[$contentType];
+        $imageType = self::$myImageTypes[$mimeType];
 
         $this->myImageType = $imageType[0];
         $imageSize = getimagesize($uploadedFile->getPath());
         $this->myImageWidth = $imageSize[0];
         $this->myImageHeight = $imageSize[1];
+        $this->myImageMimeType = $mimeType;
     }
 
     /**
@@ -130,6 +143,7 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
         $this->myImageType = ImageType::NONE;
         $this->myImageHeight = 0;
         $this->myImageWidth = 0;
+        $this->myImageMimeType = '';
     }
 
     /**
@@ -151,6 +165,11 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      * @var int My image width.
      */
     private $myImageWidth;
+
+    /**
+     * @var string My image mime type.
+     */
+    private $myImageMimeType;
 
     /**
      * @var array My image types.
