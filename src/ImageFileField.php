@@ -31,7 +31,19 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     {
         parent::__construct($name);
 
-        $this->myIsInvalid = false;
+        $this->myReset();
+    }
+
+    /**
+     * Returns the image type as one of the constants defined in the ImageType class.
+     *
+     * @since 1.0.0
+     *
+     * @return int The image type.
+     */
+    public function getImageType()
+    {
+        return $this->myImageType;
     }
 
     /**
@@ -57,7 +69,7 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     {
         parent::onSetUploadedFile($uploadedFile);
 
-        $this->myIsInvalid = false;
+        $this->myReset();
 
         if ($this->hasError()) {
             return;
@@ -66,10 +78,45 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
         if ($this->isEmpty()) {
             return;
         }
+
+        $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+        $contentType = strtolower(finfo_file($fileInfo, $uploadedFile->getPath()));
+
+        if (!isset(self::$myImageTypes[$contentType])) {
+            $this->myIsInvalid = true;
+            $this->setError('Invalid image file');
+
+            return;
+        }
+
+        $imageType = self::$myImageTypes[$contentType];
+
+        $this->myImageType = $imageType[0];
+    }
+
+    /**
+     * Resets the properties.
+     */
+    private function myReset()
+    {
+        $this->myIsInvalid = false;
+        $this->myImageType = ImageType::NONE;
     }
 
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
     private $myIsInvalid;
+
+    /**
+     * @var int My image type.
+     */
+    private $myImageType;
+
+    /**
+     * @var array My image types.
+     */
+    private static $myImageTypes = [
+        'image/jpeg' => [ImageType::JPEG],
+    ];
 }

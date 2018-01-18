@@ -17,6 +17,15 @@ use BlueMvc\Forms\Interfaces\FileFieldInterface;
 interface ImageFileFieldInterface extends FileFieldInterface
 {
     /**
+     * Returns the image type as one of the constants defined in the ImageType class.
+     *
+     * @since 1.0.0
+     *
+     * @return int The image type.
+     */
+    public function getImageType();
+
+    /**
      * Return true if the image file is invalid, false otherwise.
      *
      * @since 1.0.0
