@@ -17,6 +17,7 @@
   ],
   "require": {
     "php": ">=5.6",
+    "ext-gd": "*",
     "bluemvc/bluemvc-core": "dev-master",
     "bluemvc/bluemvc-forms": "dev-master"
   },

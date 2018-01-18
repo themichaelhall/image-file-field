@@ -17,6 +17,15 @@ use BlueMvc\Forms\Interfaces\FileFieldInterface;
 interface ImageFileFieldInterface extends FileFieldInterface
 {
     /**
+     * Returns the image height.
+     *
+     * @since 1.0.0
+     *
+     * @return int The image height.
+     */
+    public function getImageHeight();
+
+    /**
      * Returns the image type as one of the constants defined in the ImageType class.
      *
      * @since 1.0.0
@@ -24,6 +33,15 @@ interface ImageFileFieldInterface extends FileFieldInterface
      * @return int The image type.
      */
     public function getImageType();
+
+    /**
+     * Returns the image width.
+     *
+     * @since 1.0.0
+     *
+     * @return int The image width.
+     */
+    public function getImageWidth();
 
     /**
      * Return true if the image file is invalid, false otherwise.

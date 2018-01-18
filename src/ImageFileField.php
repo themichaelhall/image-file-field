@@ -35,6 +35,18 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     }
 
     /**
+     * Returns the image height.
+     *
+     * @since 1.0.0
+     *
+     * @return int The image height.
+     */
+    public function getImageHeight()
+    {
+        return $this->myImageHeight;
+    }
+
+    /**
      * Returns the image type as one of the constants defined in the ImageType class.
      *
      * @since 1.0.0
@@ -44,6 +56,18 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     public function getImageType()
     {
         return $this->myImageType;
+    }
+
+    /**
+     * Returns the image width.
+     *
+     * @since 1.0.0
+     *
+     * @return int The image width.
+     */
+    public function getImageWidth()
+    {
+        return $this->myImageWidth;
     }
 
     /**
@@ -92,6 +116,9 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
         $imageType = self::$myImageTypes[$contentType];
 
         $this->myImageType = $imageType[0];
+        $imageSize = getimagesize($uploadedFile->getPath());
+        $this->myImageWidth = $imageSize[0];
+        $this->myImageHeight = $imageSize[1];
     }
 
     /**
@@ -101,6 +128,8 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     {
         $this->myIsInvalid = false;
         $this->myImageType = ImageType::NONE;
+        $this->myImageHeight = 0;
+        $this->myImageWidth = 0;
     }
 
     /**
@@ -112,6 +141,16 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      * @var int My image type.
      */
     private $myImageType;
+
+    /**
+     * @var int My image height.
+     */
+    private $myImageHeight;
+
+    /**
+     * @var int My image width.
+     */
+    private $myImageWidth;
 
     /**
      * @var array My image types.
