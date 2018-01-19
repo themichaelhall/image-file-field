@@ -77,6 +77,7 @@ class ImageFileFieldTest extends TestCase
             ['textfile.txt', true, ImageType::NONE, '', '', 0, 0, true, true, 'Invalid image file'],
             ['jpegfile.jpg', true, ImageType::JPEG, 'image/jpeg', 'jpg', 20, 30, false, false, null],
             ['pngfile.png', true, ImageType::PNG, 'image/png', 'png', 25, 25, false, false, null],
+            ['giffile.gif', true, ImageType::GIF, 'image/gif', 'gif', 25, 40, false, false, null],
         ];
     }
 }

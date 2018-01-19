@@ -22,6 +22,13 @@ class ImageType
     const NONE = -1;
 
     /**
+     * GIF image.
+     *
+     * @since 1.0.0
+     */
+    const GIF = \IMAGETYPE_GIF;
+
+    /**
      * JPEG image.
      *
      * @since 1.0.0

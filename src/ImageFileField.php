@@ -54,6 +54,8 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
                 return imagecreatefromjpeg($filePath) ?: null;
             case ImageType::PNG:
                 return imagecreatefrompng($filePath) ?: null;
+            case ImageType::GIF:
+                return imagecreatefromgif($filePath) ?: null;
         }
 
         return null;
@@ -222,5 +224,6 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     private static $myImageTypes = [
         'image/jpeg' => [ImageType::JPEG, 'jpg'],
         'image/png'  => [ImageType::PNG, 'png'],
+        'image/gif'  => [ImageType::GIF, 'gif'],
     ];
 }
