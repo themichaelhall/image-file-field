@@ -42,6 +42,16 @@ class ImageFileFieldTest extends TestCase
             null;
         $imageFileField->setUploadedFile($uploadedFile);
 
+        $imageWidth = 0;
+        $imageHeight = 0;
+        $image = $imageFileField->getImage();
+
+        if ($image !== null) {
+            $imageWidth = imagesx($image);
+            $imageHeight = imagesy($image);
+            imagedestroy($image);
+        }
+
         self::assertSame($expectedImageType, $imageFileField->getImageType());
         self::assertSame($expectedImageMimeType, $imageFileField->getImageMimeType());
         self::assertSame($expectedImageDefaultFileExtension, $imageFileField->getImageDefaultFileExtension());
@@ -50,6 +60,8 @@ class ImageFileFieldTest extends TestCase
         self::assertSame($expectedIsInvalid, $imageFileField->isInvalid());
         self::assertSame($expectedHasError, $imageFileField->hasError());
         self::assertSame($expectedError, $imageFileField->getError());
+        self::assertSame($expectedImageWidth, $imageWidth);
+        self::assertSame($expectedImageHeight, $imageHeight);
     }
 
     /**

@@ -17,6 +17,15 @@ use BlueMvc\Forms\Interfaces\FileFieldInterface;
 interface ImageFileFieldInterface extends FileFieldInterface
 {
     /**
+     * Returns the image resource, for the image file or null if no valid image is uploaded.
+     *
+     * @since 1.0.0
+     *
+     * @return resource|null The image resource for the image file or null.
+     */
+    public function getImage();
+
+    /**
      * Returns the image default file extension.
      *
      * @since 1.0.0

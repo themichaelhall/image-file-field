@@ -35,6 +35,29 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     }
 
     /**
+     * Returns the image resource, for the image file or null if no valid image is uploaded.
+     *
+     * @since 1.0.0
+     *
+     * @return resource|null The image resource for the image file or null.
+     */
+    public function getImage()
+    {
+        if ($this->isEmpty()) {
+            return null;
+        }
+
+        $filePath = $this->getFile()->getPath()->__toString();
+
+        switch ($this->myImageType) {
+            case ImageType::JPEG:
+                return imagecreatefromjpeg($filePath) ?: null;
+        }
+
+        return null;
+    }
+
+    /**
      * Returns the image default file extension.
      *
      * @since 1.0.0
