@@ -76,6 +76,7 @@ class ImageFileFieldTest extends TestCase
             [null, true, ImageType::NONE, '', '', 0, 0, false, true, 'Missing file'],
             ['textfile.txt', true, ImageType::NONE, '', '', 0, 0, true, true, 'Invalid image file'],
             ['jpegfile.jpg', true, ImageType::JPEG, 'image/jpeg', 'jpg', 20, 30, false, false, null],
+            ['pngfile.png', true, ImageType::PNG, 'image/png', 'png', 25, 25, false, false, null],
         ];
     }
 }

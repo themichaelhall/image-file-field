@@ -27,4 +27,11 @@ class ImageType
      * @since 1.0.0
      */
     const JPEG = \IMAGETYPE_JPEG;
+
+    /**
+     * PNG image.
+     *
+     * @since 1.0.0
+     */
+    const PNG = \IMAGETYPE_PNG;
 }
