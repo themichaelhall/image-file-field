@@ -8,4 +8,58 @@
 [![Latest Stable Version](https://poser.pugx.org/michaelhall/image-file-field/v/stable)](https://packagist.org/packages/michaelhall/image-file-field)
 [![Total Downloads](https://poser.pugx.org/michaelhall/image-file-field/downloads)](https://packagist.org/packages/michaelhall/image-file-field)
 
-This project is under construction and is not yet complete. Please check back later.
+Image file upload field for the  [BlueMvc PHP framework](https://github.com/themichaelhall/bluemvc).
+
+## Requirements
+
+- PHP >= 5.6
+
+## Install with Composer
+
+``` bash
+$ composer require michaelhall/image-file-field
+```
+
+## Basic usage
+
+ImageFileField extends the [FileField](https://github.com/themichaelhall/bluemvc-forms/blob/master/src/FileField.php) class to provide additional functionality for uploaded image handling. 
+
+The following image types are supported: 
+- JPEG
+- PNG
+- GIF
+
+### Create an image file field
+
+```php
+// Construct as an ordinary form field.
+$imageFileField = new ImageFileField('image');
+```
+
+### Use in validation / after processing
+```php
+// Returns true if uploaded file is not a valid image, false otherwise.
+$imageFileField->isInvalid();
+
+// Returns the image type, e.g. ImageType::JPEG.
+$imageFileField->getImageType();
+
+// Returns the image mime type, e.g. 'image/jpeg'.
+$imageFileField->getImageMimeType();
+
+// Returns the default file extension for the image type, e.g. 'jpg'.
+$imageFileField->getImageDefaultFileExtension();
+
+// Returns the image width, e.g. 1000.
+$imageFileField->getImageWidth();
+
+// Returns the image height, e.g. 500.
+$imageFileField->getImageHeight();
+
+// Returns an image resource, created from the relevant imagecreatefrom* function.
+$imageFileField->getImage();
+```
+
+## License
+
+MIT
