@@ -156,14 +156,14 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
         $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = strtolower(finfo_file($fileInfo, $uploadedFile->getPath()->__toString()));
 
-        if (!isset(self::$imageTypes[$mimeType])) {
+        if (!isset(self::IMAGE_TYPES[$mimeType])) {
             $this->isInvalid = true;
             $this->setError('Invalid image file');
 
             return;
         }
 
-        $imageType = self::$imageTypes[$mimeType];
+        $imageType = self::IMAGE_TYPES[$mimeType];
 
         $this->imageMimeType = $mimeType;
         $this->imageType = $imageType[0];
@@ -218,9 +218,9 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     private $imageDefaultFileExtension;
 
     /**
-     * @var array My image types.
+     * My image types.
      */
-    private static $imageTypes = [
+    private const IMAGE_TYPES = [
         'image/jpeg' => [ImageType::JPEG, 'jpg'],
         'image/png'  => [ImageType::PNG, 'png'],
         'image/gif'  => [ImageType::GIF, 'gif'],
