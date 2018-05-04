@@ -140,7 +140,7 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      *
      * @param UploadedFileInterface|null $uploadedFile The file from form.
      */
-    protected function onSetUploadedFile(UploadedFileInterface $uploadedFile = null)
+    protected function onSetUploadedFile(?UploadedFileInterface $uploadedFile = null): void
     {
         parent::onSetUploadedFile($uploadedFile);
 
