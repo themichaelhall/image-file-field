@@ -4,6 +4,7 @@
  *
  * Read more at https://github.com/themichaelhall/image-file-field
  */
+declare(strict_types=1);
 
 namespace MichaelHall\ImageFileField;
 
@@ -24,14 +25,12 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      * @since 1.0.0
      *
      * @param string $name The name.
-     *
-     * @throws \InvalidArgumentException If the $name parameter is not a string.
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         parent::__construct($name);
 
-        $this->myReset();
+        $this->reset();
     }
 
     /**
@@ -49,7 +48,7 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
 
         $filePath = $this->getFile()->getPath()->__toString();
 
-        switch ($this->myImageType) {
+        switch ($this->imageType) {
             case ImageType::JPEG:
                 return imagecreatefromjpeg($filePath) ?: null;
             case ImageType::PNG:
@@ -68,9 +67,9 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      *
      * @return string The image default file extension.
      */
-    public function getImageDefaultFileExtension()
+    public function getImageDefaultFileExtension(): string
     {
-        return $this->myImageDefaultFileExtension;
+        return $this->imageDefaultFileExtension;
     }
 
     /**
@@ -80,9 +79,9 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      *
      * @return int The image height.
      */
-    public function getImageHeight()
+    public function getImageHeight(): int
     {
-        return $this->myImageHeight;
+        return $this->imageHeight;
     }
 
     /**
@@ -92,9 +91,9 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      *
      * @return string The image mime type.
      */
-    public function getImageMimeType()
+    public function getImageMimeType(): string
     {
-        return $this->myImageMimeType;
+        return $this->imageMimeType;
     }
 
     /**
@@ -104,9 +103,9 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      *
      * @return int The image type.
      */
-    public function getImageType()
+    public function getImageType(): int
     {
-        return $this->myImageType;
+        return $this->imageType;
     }
 
     /**
@@ -116,9 +115,9 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      *
      * @return int The image width.
      */
-    public function getImageWidth()
+    public function getImageWidth(): int
     {
-        return $this->myImageWidth;
+        return $this->imageWidth;
     }
 
     /**
@@ -128,9 +127,9 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
      *
      * @return bool True if the image file is invalid, false otherwise.
      */
-    public function isInvalid()
+    public function isInvalid(): bool
     {
-        return $this->myIsInvalid;
+        return $this->isInvalid;
     }
 
     /**
@@ -144,7 +143,7 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
     {
         parent::onSetUploadedFile($uploadedFile);
 
-        $this->myReset();
+        $this->reset();
 
         if ($this->hasError()) {
             return;
@@ -155,73 +154,73 @@ class ImageFileField extends FileField implements ImageFileFieldInterface
         }
 
         $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = strtolower(finfo_file($fileInfo, $uploadedFile->getPath()));
+        $mimeType = strtolower(finfo_file($fileInfo, $uploadedFile->getPath()->__toString()));
 
-        if (!isset(self::$myImageTypes[$mimeType])) {
-            $this->myIsInvalid = true;
+        if (!isset(self::$imageTypes[$mimeType])) {
+            $this->isInvalid = true;
             $this->setError('Invalid image file');
 
             return;
         }
 
-        $imageType = self::$myImageTypes[$mimeType];
+        $imageType = self::$imageTypes[$mimeType];
 
-        $this->myImageMimeType = $mimeType;
-        $this->myImageType = $imageType[0];
-        $this->myImageDefaultFileExtension = $imageType[1];
+        $this->imageMimeType = $mimeType;
+        $this->imageType = $imageType[0];
+        $this->imageDefaultFileExtension = $imageType[1];
 
-        $imageSize = getimagesize($uploadedFile->getPath());
-        $this->myImageWidth = $imageSize[0];
-        $this->myImageHeight = $imageSize[1];
+        $imageSize = getimagesize($uploadedFile->getPath()->__toString());
+        $this->imageWidth = $imageSize[0];
+        $this->imageHeight = $imageSize[1];
     }
 
     /**
      * Resets the properties.
      */
-    private function myReset()
+    private function reset()
     {
-        $this->myIsInvalid = false;
-        $this->myImageType = ImageType::NONE;
-        $this->myImageHeight = 0;
-        $this->myImageWidth = 0;
-        $this->myImageMimeType = '';
-        $this->myImageDefaultFileExtension = '';
+        $this->isInvalid = false;
+        $this->imageType = ImageType::NONE;
+        $this->imageHeight = 0;
+        $this->imageWidth = 0;
+        $this->imageMimeType = '';
+        $this->imageDefaultFileExtension = '';
     }
 
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
-    private $myIsInvalid;
+    private $isInvalid;
 
     /**
      * @var int My image type.
      */
-    private $myImageType;
+    private $imageType;
 
     /**
      * @var int My image height.
      */
-    private $myImageHeight;
+    private $imageHeight;
 
     /**
      * @var int My image width.
      */
-    private $myImageWidth;
+    private $imageWidth;
 
     /**
      * @var string My image mime type.
      */
-    private $myImageMimeType;
+    private $imageMimeType;
 
     /**
      * @var string My image default file extension.
      */
-    private $myImageDefaultFileExtension;
+    private $imageDefaultFileExtension;
 
     /**
      * @var array My image types.
      */
-    private static $myImageTypes = [
+    private static $imageTypes = [
         'image/jpeg' => [ImageType::JPEG, 'jpg'],
         'image/png'  => [ImageType::PNG, 'png'],
         'image/gif'  => [ImageType::GIF, 'gif'],
