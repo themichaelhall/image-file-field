@@ -12,7 +12,7 @@ Image file upload field for the  [BlueMvc PHP framework](https://github.com/them
 
 ## Requirements
 
-- PHP >= 5.6
+- PHP >= 7.1
 
 ## Install with Composer
 
