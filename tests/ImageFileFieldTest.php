@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MichaelHall\ImageFileField\Tests;
 
 use BlueMvc\Core\UploadedFile;
@@ -18,7 +20,7 @@ class ImageFileFieldTest extends TestCase
      *
      * @dataProvider setUploadedFileDataProvider
      *
-     * @param string      $filename                          The filename.
+     * @param string|null $filename                          The filename or null if no file.
      * @param bool        $isRequired                        If true, file is required, false otherwise.
      * @param int         $expectedImageType                 The expected image type.
      * @param string      $expectedImageMimeType             The expected image mime type.
@@ -28,11 +30,8 @@ class ImageFileFieldTest extends TestCase
      * @param bool        $expectedIsInvalid                 True if file is expected to be valid, false otherwise.
      * @param bool        $expectedHasError                  True if file field is expected to have an error, false otherwise.
      * @param string|null $expectedError                     The expected error or null if no error.
-     *
-     * @throws \DataTypes\Exceptions\FilePathInvalidArgumentException
-     * @throws \InvalidArgumentException
      */
-    public function testSetUploadedFile($filename, $isRequired, $expectedImageType, $expectedImageMimeType, $expectedImageDefaultFileExtension, $expectedImageWidth, $expectedImageHeight, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetUploadedFile(?string $filename, bool $isRequired, int $expectedImageType, string $expectedImageMimeType, string $expectedImageDefaultFileExtension, int $expectedImageWidth, int $expectedImageHeight, bool $expectedIsInvalid, bool $expectedHasError, ?string $expectedError)
     {
         $imageFileField = new ImageFileField('image');
         $imageFileField->setRequired($isRequired);

@@ -4,6 +4,7 @@
  *
  * Read more at https://github.com/themichaelhall/image-file-field
  */
+declare(strict_types=1);
 
 namespace MichaelHall\ImageFileField\Interfaces;
 
@@ -32,7 +33,7 @@ interface ImageFileFieldInterface extends FileFieldInterface
      *
      * @return string The image default file extension.
      */
-    public function getImageDefaultFileExtension();
+    public function getImageDefaultFileExtension(): string;
 
     /**
      * Returns the image height.
@@ -41,7 +42,7 @@ interface ImageFileFieldInterface extends FileFieldInterface
      *
      * @return int The image height.
      */
-    public function getImageHeight();
+    public function getImageHeight(): int;
 
     /**
      * Returns the image mime type.
@@ -50,7 +51,7 @@ interface ImageFileFieldInterface extends FileFieldInterface
      *
      * @return string The image mime type.
      */
-    public function getImageMimeType();
+    public function getImageMimeType(): string;
 
     /**
      * Returns the image type as one of the constants defined in the ImageType class.
@@ -59,7 +60,7 @@ interface ImageFileFieldInterface extends FileFieldInterface
      *
      * @return int The image type.
      */
-    public function getImageType();
+    public function getImageType(): int;
 
     /**
      * Returns the image width.
@@ -68,7 +69,7 @@ interface ImageFileFieldInterface extends FileFieldInterface
      *
      * @return int The image width.
      */
-    public function getImageWidth();
+    public function getImageWidth(): int;
 
     /**
      * Return true if the image file is invalid, false otherwise.
@@ -77,5 +78,5 @@ interface ImageFileFieldInterface extends FileFieldInterface
      *
      * @return bool True if the image file is invalid, false otherwise.
      */
-    public function isInvalid();
+    public function isInvalid(): bool;
 }

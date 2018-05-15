@@ -4,6 +4,7 @@
  *
  * Read more at https://github.com/themichaelhall/image-file-field
  */
+declare(strict_types=1);
 
 namespace MichaelHall\ImageFileField;
 
